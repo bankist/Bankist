@@ -1,0 +1,21 @@
+
+@import "./../../../theme/variables.scss";
+
+.movements{
+  display: flex;
+  @media screen and (max-width: map-get($grid-breakpoints, lg)){
+    display: block;
+  }
+  movement-list{
+    display: inline-block;
+    width: 30%;
+    height: calc(100vh - 266px);
+    min-height: calc(100vh - 266px);
+    @media screen and (max-width: map-get($grid-breakpoints, lg)){
+      display: block;
+      width: 100%;
+      height: calc(100vh - 336px);
+      min-height: calc(100vh - 336px);
+    }
+  }
+}

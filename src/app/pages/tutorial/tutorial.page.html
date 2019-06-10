@@ -1,0 +1,20 @@
+
+<ion-content>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <headerlogo></headerlogo>
+
+  <movement-tutorial
+  (createdMovements)="createMovements($event)"
+  [currency]="currency"
+  ></movement-tutorial>
+
+</ion-content>

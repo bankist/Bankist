@@ -1,0 +1,49 @@
+
+<section 
+  id="movement-card-container"
+  class="movement-card-container"
+  [ngClass]="{overlay: movement}"
+  (click)="closeMovementCard($event)">
+
+  <ion-card>
+    
+    <ion-card-content>
+      <section class="movement-card">
+
+
+        <ion-icon
+          md="md-close" 
+          ios="md-close" 
+          class="card-close"
+          (click)="closeMovementCard()"
+          ></ion-icon>
+
+        <span class="card-product">
+          <ion-icon name="{{movement.product ? (movement.product | iconify) : ((movement.type=='outcome'?'down':'up') | iconify) }}"></ion-icon>
+          <b>{{ (movement.product ? movement.product : movement.type) | translate}}</b>
+        </span>
+
+        <small class="card-date">
+          {{movement.date | datezeit }}
+          <ng-template [ngIf]="movement?.repeat">
+            - {{'MOVEMENT_' + movement.repeat.toUpperCase() | translate }}
+          </ng-template>          
+        </small>
+
+        <h1 class="card-amount">{{movement.amount | currency:currency | customcurrency}}</h1>
+
+        <h2 class="card-concept">{{movement.concept}}</h2>
+
+        <a
+        *ngIf="!movement?.grouped"
+        class="card-edit"
+        (click)="editMovement()">{{'EDIT' | translate}}</a>
+
+        <span
+        *ngIf="movement?.grouped"
+        class="card-grouped">{{movement?.grouped}} {{ 'MOVEMENT_TITLE' | translate}}</span>
+
+      </section>
+    </ion-card-content>
+  </ion-card>
+</section>

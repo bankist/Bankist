@@ -1,0 +1,17 @@
+
+
+<section>
+  <ion-item *ngIf="!avoidables?.length">
+    <small class="no-data">No hay gastos evitables</small>
+  </ion-item>
+  <ion-list *ngIf="avoidables?.length">
+
+    <movement-mini *ngFor="let movement of avoidables"
+    [check]="true"
+    [currency]="currency"
+    [movement]="movement"
+    (movementClicked)="editMovement($event)"
+    (movementChanged)="editAvoidable($event)"></movement-mini>
+
+  </ion-list>
+</section>

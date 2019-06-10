@@ -1,0 +1,13 @@
+
+<div class="economy-products">
+  <section>
+    <ion-list>
+      <ion-item *ngFor="let product of products" class="product">
+        <div class="container">
+          <ion-icon name="{{product?.product ? (product?.product | iconify) : ((product?.type=='outcome'?'down':'up') | iconify) }}"></ion-icon>
+          <b>{{product?.amount | number:'1.0-0'}} %</b> 
+        </div>
+      </ion-item>
+    </ion-list>
+  </section>
+</div>

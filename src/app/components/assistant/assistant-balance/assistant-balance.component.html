@@ -1,0 +1,20 @@
+
+<div class="assistant-balance">
+
+  <h2>{{ 'ASSISTANT_BALANCE_TITLE' | translate }}</h2>
+
+  <p>{{ 'ASSISTANT_BALANCE_TEXT' | translate }}</p>
+
+  <section>
+    <movement-form
+      *ngIf="movement"
+      [currency]="currency"
+      [options]="options"
+      [wallet]="wallet"
+      [movement]="movement"
+      [view]="view"
+      (createdMovement)="createMovement($event)"
+      ></movement-form>
+  </section>
+  
+</div>

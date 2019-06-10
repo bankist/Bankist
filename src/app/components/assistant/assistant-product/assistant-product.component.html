@@ -1,0 +1,30 @@
+
+<div class="assistant-product">
+
+  <h2>{{ 'ASSISTANT_PRODUCT_TITLE' | translate }}</h2>
+
+  <p>{{ 'ASSISTANT_PRODUCT_TEXT' | translate }}</p>
+
+  <section>
+
+    <ion-list *ngIf="!movement" class="products">
+      <ion-item *ngFor="let product of products" class="product" (click)="setProduct(product)">
+        <div class="container">
+          <ion-icon name="{{product?.product ? (product?.product | iconify) : ((product?.type=='outcome'?'down':'up') | iconify) }}"></ion-icon>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <movement-form
+      *ngIf="movement"
+      [currency]="currency"
+      [options]="options"
+      [wallet]="wallet"
+      [movement]="movement"
+      [view]="view"
+      (createdMovement)="createMovement($event)"
+      ></movement-form>
+    
+  </section>
+  
+</div>

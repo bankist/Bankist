@@ -1,0 +1,67 @@
+
+<section 
+  id="movement-tutorial-container"
+  class="movement-tutorial-container"
+  >
+
+  <ion-card>
+
+    <ion-card-content>
+
+      <ion-slides [options]="sliderOptions" pager="true" control="false">
+        <ion-slide *ngFor="let movement of visibleDemoMovements; let i = index">
+
+          <section class="movement-tutorial">
+
+            <span class="form-step">{{i+1}} / {{demoMovements?.length}}</span>
+            <ion-icon class="form-icon" ios="{{movement?.product | iconify}}" md="{{movement.product | iconify}}"></ion-icon>
+            <span class="form-text">{{movement.text}}</span>
+
+            <div class="form-field">
+              <movement-input [movement]="movement" [currency]="currency" (changedInput)="movement.amount = $event"></movement-input>
+            </div>
+
+            <div class="form-field inlined w50">
+              <ion-button  color="primary" expand="block" fill="{{movement?.skipped ? 'clear':''}}" class="next"
+               (click)="saveStep(i)">
+                {{ 'MOVEMENT_NEXT' | translate }}
+              </ion-button>
+            </div>
+
+            <div class="form-field inlined w50">
+              <ion-button  color="primary" expand="block" fill="{{!movement?.skipped ? 'clear':''}}" class="skip"
+               (click)="skipStep(i)">
+                {{ 'MOVEMENT_SKIP' | translate }}
+              </ion-button>
+            </div>
+
+          </section>
+        </ion-slide>
+        <ion-slide *ngIf="infoSlide">
+          <section class="movement-tutorial movement-tutorial-info">
+            <ion-icon ios="md-checkmark-circle-outline" md="md-checkmark-circle-outline"></ion-icon>
+            <h2 class="form-final-title">{{ 'DEMO_FINAL_TITLE' | translate }}</h2>
+            <h3 class="form-final-text">{{ 'DEMO_FINAL_TEXT' | translate }}</h3>
+            <div class="movement-tutorial-grid">
+              <ng-template ngFor let-movement let-index [ngForOf]="visibleDemoMovements">
+                <div *ngIf="!movement?.skipped" class="m{{index}}">
+                  <ion-icon class="movement-icon" ios="{{movement?.product | iconify}}" md="{{movement.product | iconify}}"></ion-icon>
+                  <b>{{movement.amount | currency:currency | customcurrency }}</b>
+                  <small>{{ movement.repeat ? ('MOVEMENT_' + (movement.repeat | uppercase) | translate) : '' }}</small>
+                </div>
+              </ng-template>
+            </div>
+            <div class="form-field">
+              <ion-button  color="primary" expand="block" class="skip"
+               (click)="next(visibleDemoMovements.length)">
+                {{ 'START' | translate }}
+              </ion-button>
+            </div>
+          </section>
+        </ion-slide>
+      </ion-slides>
+    </ion-card-content>
+  
+  </ion-card>
+  
+</section>

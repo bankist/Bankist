@@ -1,0 +1,41 @@
+
+<ion-content>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+<!--   <stores
+  *ngIf="!isCordovaBankist && (!movement?.movementUuid || edit)"
+  (closedMovement)="closeMovement($event)"
+  ></stores> -->
+
+  <!-- *ngIf="isCordovaBankist && (!movement?.movementUuid || edit)" -->
+  <movement-form
+  *ngIf="!movement?.movementUuid || edit"
+  [currency]="currency"
+  [movement]="movement"
+  [wallet]="wallet"
+  [view]="view"
+  (createdMovement)="createMovement($event)"
+  (updatedMovement)="updateMovement($event)"
+  (deletedMovement)="deleteMovement($event)"
+  (closedMovement)="closeMovement($event)"
+  ></movement-form>
+
+  <movement-card
+  *ngIf="movement?.movementUuid && !edit"
+  [currency]="currency"
+  [movement]="movement"
+  [wallet]="wallet"
+  (editedMovement)="editMovement($event)"
+  (closedMovement)="closeMovement($event)"
+  >
+  </movement-card>
+
+</ion-content>

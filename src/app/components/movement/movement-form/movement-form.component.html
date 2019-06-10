@@ -1,0 +1,299 @@
+
+<section 
+  id="movement-form-container"
+  class="movement-form-container"
+  [ngClass]="{overlay: movement, page: view=='page'}"
+  (click)="closeMovementForm($event)">
+
+  <ion-card>
+    
+    <ion-card-content class="create-movement">
+      <section class="movement-form"
+      [ngClass]="{modal: view=='modal'}">
+        <h3 *ngIf="!options?.fields?.length && !movement?.movementUuid" class="form-title">{{ 'MOVEMENT_ADD' | translate }}</h3>
+        <h3 *ngIf="!options?.fields?.length && movement?.movementUuid" class="form-title">{{ 'MOVEMENT_EDIT' | translate }}</h3>
+
+        <ion-icon
+          *ngIf="view=='modal'"
+          md="md-close" 
+          ios="md-close" 
+          class="form-close"
+          (click)="closeMovementForm()"
+          ></ion-icon>
+        
+        <form #movementForm="ngForm">
+
+          <div 
+          *ngIf="!options?.fields?.length 
+          || (options?.include&&options?.fields.indexOf('amount')!=-1)
+          || (options?.exclude&&options?.fields.indexOf('amount')==-1)"
+          class="form-field">
+            <movement-input [movement]="movement" [currency]="currency" (changedInput)="movement.amount = $event"></movement-input>
+          </div>
+
+          <div 
+          *ngIf="!options?.fields?.length 
+          || (options?.include&&options?.fields.indexOf('concept')!=-1)
+          || (options?.exclude&&options?.fields.indexOf('concept')==-1)"
+          class="form-field">
+            <ion-item>
+              <ion-input type="text" placeholder="{{ 'MOVEMENT_CONCEPT_PLACEHOLDER' | translate }}" [(ngModel)]="movement.concept" #concept="ngModel" name="concept" required></ion-input>
+            </ion-item>
+          </div>
+
+          <div *ngIf="!options?.fields?.length && !movement?.movementUuid && !moreOptions" class="form-field more-options" (click)="showMore()">
+            <label><i class="fas fa-angle-down"></i>{{ 'MOVEMENT_OPTIONS_MORE' | translate }}</label>
+          </div>
+
+          <ng-template [ngIf]="moreOptions || movement?.movementUuid || options?.include">
+
+            <div  
+            *ngIf="!options?.fields?.length 
+            || (options?.include&&options?.fields.indexOf('type')!=-1)
+            || (options?.exclude&&options?.fields.indexOf('type')==-1)"
+            class="form-field inlined">
+              <ion-item>
+                <ion-label>{{ 'MOVEMENT_TYPE' | translate }}</ion-label>
+                <ion-select [(ngModel)]="movement.type" #type="ngModel" name="type">
+                  <ion-select-option value="outcome">{{ 'MOVEMENT_OUTCOME' | translate }}</ion-select-option>
+                  <ion-select-option value="income">{{ 'MOVEMENT_INCOME' | translate }}</ion-select-option>
+                  <ion-select-option value="balance">{{ 'MOVEMENT_BALANCE' | translate }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
+
+            <div  
+            *ngIf="!options?.fields?.length 
+            || (options?.include&&options?.fields.indexOf('product')!=-1)
+            || (options?.exclude&&options?.fields.indexOf('product')==-1)"
+            class="form-field inlined">
+              <ion-item (click)="changeProduct()">
+                <ion-label>{{ 'MOVEMENT_PRODUCT' | translate}}</ion-label>
+                <span class="form-product-name">{{ movement?.product | translate }}</span>
+                <ion-icon *ngIf="movement?.product" class="form-icon" ios="{{movement?.product | iconify}}" md="{{movement?.product | iconify}}"></ion-icon>
+              </ion-item>
+            </div> 
+
+            <div 
+            *ngIf="!options?.fields?.length 
+            || (options?.include&&options?.fields.indexOf('essential')!=-1)
+            || (options?.exclude&&options?.fields.indexOf('essential')==-1)"
+            class="form-field inlined">
+              <ion-item>
+                <ion-label>{{ 'MOVEMENT_ESSENTIAL' | translate }}</ion-label>
+                <ion-checkbox [(ngModel)]="movement.essential" #essential="ngModel" name="essential"></ion-checkbox>
+              </ion-item>
+            </div>
+
+            <ng-template  
+              [ngIf]="!options?.fields?.length 
+              || (options?.include&&options?.fields.indexOf('dates')!=-1)
+              || (options?.exclude&&options?.fields.indexOf('dates')==-1)">
+
+
+              <ng-template [ngIf]="!movement?.movementUuid">
+
+                <div *ngIf="!movement.repeat" class="form-field inlined">
+                  <ion-item>
+                    <ion-label>{{ 'MOVEMENT_DATE' | translate }}</ion-label>
+                    <ion-datetime 
+                      displayFormat="{{ 'DATE_FORMAT' | translate }}"
+                      monthNames="{{ 'DATE_MONTH_NAMES' | translate}}"
+                      monthShortNames="{{ 'DATE_MONTH_SHORT_NAMES' | translate}}"
+                      dayNames="{{ 'DATE_DAY_NAMES' | translate}}"
+                      dayShortNames="{{ 'DATE_DAY_SHORT_NAMES' | translate}}"
+                      cancelText="{{ 'CANCEL' | translate}}"
+                      doneText="{{ 'DONE' | translate}}"
+                      min="{{dateMin}}"
+                      max="{{dateMax}}"
+                      #from="ngModel" name="from"
+                      [(ngModel)]="movement.from"></ion-datetime>
+                  </ion-item>
+                </div>
+
+                <div *ngIf="movement.repeat" class="form-field inlined">
+                  <ion-item>
+                    <ion-label>{{ (movement.repeat ? 'MOVEMENT_FROM' : 'MOVEMENT_DATE') | translate }}</ion-label>
+                    <ion-datetime 
+                      displayFormat="{{ 'DATE_FORMAT' | translate }}"
+                      monthNames="{{ 'DATE_MONTH_NAMES' | translate}}"
+                      monthShortNames="{{ 'DATE_MONTH_SHORT_NAMES' | translate}}"
+                      dayNames="{{ 'DATE_DAY_NAMES' | translate}}"
+                      dayShortNames="{{ 'DATE_DAY_SHORT_NAMES' | translate}}"
+                      cancelText="{{ 'CANCEL' | translate}}"
+                      doneText="{{ 'DONE' | translate}}"
+                      min="{{dateMin}}"
+                      max="{{dateMax}}"
+                      #from="ngModel" name="from"
+                      [(ngModel)]="movement.from"></ion-datetime>
+                  </ion-item>
+                </div>
+
+                <div
+                *ngIf="!options?.fields?.length 
+                || (options?.include&&options?.fields.indexOf('repeat')!=-1)
+                || (options?.exclude&&options?.fields.indexOf('repeat')==-1)"
+                class="form-field inlined">
+                  <ion-item>
+                    <ion-label>{{ 'MOVEMENT_FRECUENCY' | translate }}</ion-label>
+                    <ion-select 
+                      placeholder="{{ 'MOVEMENT_UNIQUE' | translate }}" 
+                      value="{{movement?.repeat}}"
+                      #repeat="ngModel" name="repeat"
+                      [(ngModel)]="movement.repeat" 
+                      (ionChange)="frecuencyChanged($event)">
+                        <ion-select-option value selected="{{!movement?.repeat}}">{{ 'MOVEMENT_UNIQUE' | translate }}</ion-select-option>
+                        <ion-select-option value="daily">{{ 'MOVEMENT_DAILY' | translate }}</ion-select-option>
+                        <ion-select-option value="workdays">{{ 'MOVEMENT_WORKDAYS' | translate }}</ion-select-option>
+                        <ion-select-option value="weekly">{{ 'MOVEMENT_WEEKLY' | translate }}</ion-select-option>
+                        <ion-select-option value="monthly">{{ 'MOVEMENT_MONTHLY' | translate }}</ion-select-option>
+                        <ion-select-option value="monthly_two">{{ 'MOVEMENT_MONTHLY_TWO' | translate }}</ion-select-option>
+                        <ion-select-option value="monthly_three">{{ 'MOVEMENT_MONTHLY_THREE' | translate }}</ion-select-option>
+                        <ion-select-option value="monthly_six">{{ 'MOVEMENT_MONTHLY_SIX' | translate }}</ion-select-option>
+                        <ion-select-option value="yearly">{{ 'MOVEMENT_YEARLY' | translate }}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </div>
+
+                <div *ngIf="movement.repeat" class="form-field inlined">
+                  <ion-item>
+                    <ion-label>{{ 'MOVEMENT_TO' | translate }}</ion-label>
+                    <ion-datetime
+                      displayFormat="{{ 'DATE_FORMAT' | translate }}"
+                      monthNames="{{ 'DATE_MONTH_NAMES' | translate}}"
+                      monthShortNames="{{ 'DATE_MONTH_SHORT_NAMES' | translate}}"
+                      dayNames="{{ 'DATE_DAY_NAMES' | translate}}"
+                      dayShortNames="{{ 'DATE_DAY_SHORT_NAMES' | translate}}"
+                      cancelText="{{ 'CANCEL' | translate}}"
+                      doneText="{{ 'DONE' | translate}}"
+                      min="{{dateMin}}"
+                      max="{{dateMax}}"
+                      #to="ngModel" name="to"
+                      [(ngModel)]="movement.to"></ion-datetime>
+                    <ion-icon *ngIf="movement?.to" class="clear-date" md="md-close" ios="md-close" (click)="clearDateTo()"></ion-icon>
+                  </ion-item>
+                </div>
+                
+              </ng-template>
+
+              <ng-template [ngIf]="movement?.movementUuid">
+
+                <ng-template [ngIf]="originalMovement.repeat">
+                  <ion-item class="form-field">
+                    <ion-label>{{'MOVEMENT_EDITING' | translate}}</ion-label>
+                  </ion-item>
+                  <ion-item class="form-field">
+                    <ion-label>{{'MOVEMENT_EVENT_OPTION' | translate}} - {{ dateMovement | datezeit}}</ion-label>
+                    <ion-radio [checked]="repeatType == 'event'" (ionSelect)="changeRepeat('event')"></ion-radio>
+                  </ion-item>
+                </ng-template>
+
+                <ng-template [ngIf]="originalMovement.repeat">
+                  <ion-item class="form-field">
+                    <ion-label>{{'MOVEMENT_NOWON_OPTION' | translate}}</ion-label>
+                    <ion-radio [checked]="repeatType == 'nowon'" (ionSelect)="changeRepeat('nowon')"></ion-radio>
+                  </ion-item>
+                </ng-template>
+
+                <ng-template [ngIf]="originalMovement.repeat">
+                  <ion-item class="form-field">
+                    <ion-label>{{'MOVEMENT_REPEAT_OPTION' | translate}}</ion-label>
+                    <ion-radio [checked]="repeatType == 'repeat'" (ionSelect)="changeRepeat('repeat')"></ion-radio>
+                  </ion-item>
+                </ng-template>
+
+                <div *ngIf="repeatType == 'repeat'" class="form-field inlined indented {{repeatType == 'repeat'?'active':''}}">
+
+                  <ion-item>
+                    <ion-label>{{ (movement?.repeat ? 'MOVEMENT_FROM' : 'MOVEMENT_DATE') | translate }}</ion-label>
+                    <ion-datetime 
+                      displayFormat="{{ 'DATE_FORMAT' | translate }}"
+                      monthNames="{{ 'DATE_MONTH_NAMES' | translate}}"
+                      monthShortNames="{{ 'DATE_MONTH_SHORT_NAMES' | translate}}"
+                      dayNames="{{ 'DATE_DAY_NAMES' | translate}}"
+                      dayShortNames="{{ 'DATE_DAY_SHORT_NAMES' | translate}}"
+                      cancelText="{{ 'CANCEL' | translate}}"
+                      doneText="{{ 'DONE' | translate}}"
+                      min="{{dateMin}}"
+                      max="{{dateMax}}"
+                      #from="ngModel" name="from"
+                      [disabled]="originalMovement.repeat && repeatType == 'event'"
+                      [(ngModel)]="movement.from"></ion-datetime>
+                  </ion-item>
+
+                  <ion-item *ngIf="movement?.repeat">
+                    <ion-label>{{ 'MOVEMENT_TO' | translate }}</ion-label>
+                    <ion-datetime
+                      displayFormat="{{ 'DATE_FORMAT' | translate }}"
+                      monthNames="{{ 'DATE_MONTH_NAMES' | translate}}"
+                      monthShortNames="{{ 'DATE_MONTH_SHORT_NAMES' | translate}}"
+                      dayNames="{{ 'DATE_DAY_NAMES' | translate}}"
+                      dayShortNames="{{ 'DATE_DAY_SHORT_NAMES' | translate}}"
+                      cancelText="{{ 'CANCEL' | translate}}"
+                      doneText="{{ 'DONE' | translate}}"
+                      min="{{dateMin}}"
+                      max="{{dateMax}}"
+                      #to="ngModel" name="to"
+                      [disabled]="originalMovement.repeat && repeatType == 'event'"
+                      [(ngModel)]="movement.to"></ion-datetime>
+                      <ion-icon *ngIf="movement?.to" class="clear-date" md="md-close" ios="md-close" (click)="clearDateTo()"></ion-icon>
+                  </ion-item>
+
+                  <ion-item>
+                    <ion-label>{{ 'MOVEMENT_FRECUENCY' | translate }}</ion-label>
+                    <ion-select 
+                      placeholder="{{ 'MOVEMENT_UNIQUE' | translate }}" 
+                      value="{{movement?.repeat}}"
+                      #repeat="ngModel" name="repeat"
+                      [(ngModel)]="movement.repeat" 
+                      [disabled]="originalMovement.repeat && repeatType == 'event'"
+                      (ionChange)="frecuencyChanged($event)">
+                        <ion-select-option value selected="{{!movement?.repeat}}">{{ 'MOVEMENT_UNIQUE' | translate }}</ion-select-option>
+                        <ion-select-option value="daily">{{ 'MOVEMENT_DAILY' | translate }}</ion-select-option>
+                        <ion-select-option value="workdays">{{ 'MOVEMENT_WORKDAYS' | translate }}</ion-select-option>
+                        <ion-select-option value="weekly">{{ 'MOVEMENT_WEEKLY' | translate }}</ion-select-option>
+                        <ion-select-option value="monthly">{{ 'MOVEMENT_MONTHLY' | translate }}</ion-select-option>
+                        <ion-select-option value="monthly_two">{{ 'MOVEMENT_MONTHLY_TWO' | translate }}</ion-select-option>
+                        <ion-select-option value="monthly_three">{{ 'MOVEMENT_MONTHLY_THREE' | translate }}</ion-select-option>
+                        <ion-select-option value="monthly_six">{{ 'MOVEMENT_MONTHLY_SIX' | translate }}</ion-select-option>
+                        <ion-select-option value="yearly">{{ 'MOVEMENT_YEARLY' | translate }}</ion-select-option>
+                    </ion-select>
+                  </ion-item>
+
+                </div>
+
+              </ng-template>
+            </ng-template>
+
+          </ng-template>
+
+          <div *ngIf="movement?.movementUuid" class="form-field inlined w50 button">
+            <ion-button  color="primary" fill="clear" expand="block"
+             (click)="closeMovementForm()">
+              {{ 'CANCEL' | translate }}
+            </ion-button>
+          </div>
+
+          <div class="form-field inlined w50 button">
+            <ion-button  color="primary" expand="block"
+            [disabled]="!movement?.amount || !movement?.concept" 
+             (click)="save(movementForm)">
+              {{ 'MOVEMENT_SAVE' | translate }}
+            </ion-button>
+          </div>
+
+          <div *ngIf="movement?.movementUuid" class="form-field inlined w50 button right">
+            <ion-button  color="primary" fill="clear" expand="block"
+             (click)="deleteMovement()">
+              {{ 'MOVEMENT_DELETE' | translate }}
+            </ion-button>
+          </div>
+
+        </form>
+
+      </section>
+    </ion-card-content>
+  
+  </ion-card>
+  
+</section>

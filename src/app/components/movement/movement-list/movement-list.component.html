@@ -1,0 +1,49 @@
+
+<section class="container">
+  <div class="movement-list">
+    <div class="movement-list-header">
+
+      <ion-item>
+        <ion-icon md="md-search" ios="md-search"></ion-icon>
+        <ion-input id="movement"
+          type="text"
+          name="filter"
+          placeholder="{{ 'FILTER' | translate }}"
+          (keyup)="searchMovements()"
+          [(ngModel)]="filterValue"
+        ></ion-input>
+      </ion-item>
+      <b class="movement-total" [ngClass]="{income: totalAmount >= 0, outcome: totalAmount<0}">{{totalAmount | currency:currency | customcurrency }}</b>
+    </div>
+    <section *ngIf="zeitMovements?.length" [ngClass]="{filtered: filtered}">
+
+      <ion-list>
+
+        <ion-item *ngFor="let movement of zeitMovements" class="movement" (click)="editMovement(movement)">
+          <div class="container">
+            <p>
+              <ion-icon name="{{movement.product ? (movement.product | iconify) : ((movement.type=='outcome'?'down':'up') | iconify) }}"></ion-icon>
+              {{movement.concept}}
+              <b [ngClass]="{income: movement?.type == 'income', outcome: movement?.type == 'outcome'}">
+                {{ (movement?.type == 'outcome' ? -movement.amount : movement.amount) | currency:currency | customcurrency}}
+              </b>
+            </p>
+            <small>
+              <ng-template [ngIf]="movement?.grouped">
+                {{movement.from | datezeit }} - {{(movement.to?movement.to:now) | datezeit }}
+              </ng-template>
+              <ng-template [ngIf]="!movement?.grouped">
+                {{movement.date | datezeit }}
+              </ng-template>
+              <ng-template [ngIf]="movement?.repeat?.length">
+                - {{'MOVEMENT_' + movement.repeat.toUpperCase() | translate }}
+              </ng-template>
+              <small *ngIf="!movement?.grouped">{{'BALANCE' | translate}} {{movement.balance | currency:currency | customcurrency}}</small>
+              <small *ngIf="movement?.grouped">{{movement.grouped}} {{'MOVEMENT_TITLE' | translate}}</small>
+            </small>
+          </div>
+        </ion-item>
+      </ion-list>
+    </section>
+  </div>
+</section>

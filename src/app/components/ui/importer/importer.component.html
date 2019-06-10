@@ -1,0 +1,62 @@
+
+<section 
+  id="importer-container"
+  class="importer-container">
+
+  <ion-card>
+    
+    <ion-card-content>
+      <section class="importer">
+
+        <ion-icon
+          md="md-arrow-round-back" 
+          ios="md-arrow-round-back" 
+          class="card-close"
+          (click)="closeImporter()"
+          ></ion-icon>
+
+        <ng-template [ngIf]="type=='movements'">
+          <h2 class="title">{{ 'IMPORT_MOVEMENTS' | translate }}</h2>
+
+          <p class="subtitle">{{ 'IMPORT_MOVEMENTS_TEXT' | translate }}</p>
+
+          <pre>
+            {{ walletformatjson }}
+          </pre>
+
+          <!-- <a href="">Ver opciones de formato</a> -->
+
+          <ion-item>
+            <ion-textarea [(ngModel)]="wallet" placeholder="{{ 'IMPORT_MOVEMENTS_TEXT_PASTE' | translate }}"></ion-textarea>
+          </ion-item>
+
+          <ion-button  color="primary" expand="block"
+           (click)="importMovements()">
+            {{ 'IMPORT' | translate }}
+          </ion-button>
+        </ng-template>
+
+        <ng-template [ngIf]="type=='wallet'">
+          <h2 class="title">{{ 'IMPORT_WALLET' | translate }}</h2>
+
+          <ion-item>
+            <ion-textarea [(ngModel)]="wallet" placeholder="{{ 'IMPORT_MOVEMENTS_TEXT_PASTE' | translate }}"></ion-textarea>
+          </ion-item>
+
+          <ion-button  color="primary" expand="block"
+           (click)="importWallet()">
+            {{ 'IMPORT' | translate }}
+          </ion-button>
+        </ng-template>
+
+        <ion-button  color="primary" expand="block" fill="clear"
+         (click)="importFile()">
+          {{ 'IMPORT_FILE' | translate }}
+        </ion-button>
+
+        <input id="csvFile" (change)="onFileChange($event)" style="display:none;" type="file" />
+
+      </section>
+    </ion-card-content>
+  </ion-card>
+</section>

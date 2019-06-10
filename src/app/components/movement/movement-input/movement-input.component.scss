@@ -1,0 +1,55 @@
+@import "./../../../../theme/variables.scss";
+
+div {
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  span {
+    position: absolute;
+    top: 0;
+    height: 64px;
+    font-size: 42px !important;
+    color: white;
+  }
+  &.prefix {
+    padding-left: 40px;
+    span {
+      left: 0;
+      right: auto;
+    }
+    input {
+      text-align: right;
+    }
+  }
+  &.suffix {
+    padding-right: 40px;
+    span {
+      left: auto;
+      right: 0;
+    }
+    input {
+      text-align: left;
+    }
+  }
+}
+input{
+  max-width: 100%;
+  margin: 0 0 10px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: white;
+  &[currencyInput]{
+    height: 64px;
+    font-size: 42px !important;
+  }
+}
+::placeholder {
+  color: rgba(255,255,255,0.5);
+  opacity: 0.5;
+}
+:-ms-input-placeholder {
+  color: rgba(255,255,255,0.5);
+}
+::-ms-input-placeholder {
+  color: rgba(255,255,255,0.5);
+}

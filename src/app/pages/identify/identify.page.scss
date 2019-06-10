@@ -1,0 +1,37 @@
+@import "./../../../theme/variables.scss";
+
+ion-list, form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  max-height: 100vh;
+  margin-top: 60px !important;
+  transform: translateX(-50%) translateY(-120%);
+
+  .wallet {
+    margin-bottom: 4px;
+    background: rgba(255,255,255,0.04);
+    color: white;
+  }
+  .new-wallet .sc-ion-label-md-h {
+    color: var(--bankist-color-yellow) !important;
+  }
+
+  ion-icon {
+    color: white;
+    font-size: 2rem;
+    margin-right: 10px;
+    margin-left: -4px;
+  }
+
+  ion-button {
+    margin-top: 20px;
+  }
+}
+
+form {
+  .item {
+    --padding-start: 0;
+  }
+}

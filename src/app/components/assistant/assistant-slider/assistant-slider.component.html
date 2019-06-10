@@ -1,0 +1,38 @@
+
+
+<!-- <nomovs
+  *ngIf="!isCordovaBankist"
+  (closedMovement)="closeAssistant($event)"
+  ></nomovs> -->
+
+  <!-- *ngIf="isCordovaBankist" -->
+<section 
+  id="assistant-container"
+  class="assistant-container">
+  <ion-card>
+    <ion-card-content>
+      <section class="assistant">
+
+        <ion-icon
+          md="md-close" 
+          ios="md-close" 
+          class="card-close"
+          (click)="closeAssistant()"
+          ></ion-icon>
+
+        <ion-slides [options]="sliderOptions" pager="true" control="false">
+          <ion-slide>
+            <assistant-recent [wallet]="wallet"></assistant-recent>
+          </ion-slide>
+          <ion-slide *ngIf="wallet && balance">
+            <assistant-balance [wallet]="wallet" [balance]="balance"></assistant-balance>
+          </ion-slide>
+          <ion-slide>
+            <assistant-essential [wallet]="wallet"></assistant-essential>
+          </ion-slide>
+        </ion-slides>
+
+      </section>
+    </ion-card-content>
+  </ion-card>
+</section>

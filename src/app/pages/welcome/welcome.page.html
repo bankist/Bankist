@@ -1,0 +1,140 @@
+
+<ion-content>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <headerlogo></headerlogo>
+
+  <ion-slides [options]="sliderOptions" pager="true" dir="{{dir}}">
+    <ion-slide *ngIf="initialSlide">
+      <div class="slide-content">
+        <div class="slide-image">
+          <svg
+            viewBox="0 0 240 135"
+            width="240"
+            height="135">
+            <path
+            *ngIf="unlockedIonSlides==1"
+             style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1" d="m 6.822313,127.90485 21.086095,-19.12586 32.320824,19.47028 37.581147,-43.72281 73.888501,43.23783 61.55648,-121.024916 -0.0569,0.08988" inkscape:connector-curvature="0" />
+          </svg>
+        </div>
+        <h2 class="slide-title">{{ 'CLAIM' | translate }}</h2>
+        <ion-button  slot="end" size="large" color="primary" fill="clear" (click)="nextSlide()">
+          <ion-icon ios="md-wallet" md="md-wallet"></ion-icon>
+          {{ 'CLAIM_ACTION' | translate }}
+        </ion-button>
+      </div>
+    </ion-slide>
+    <ion-slide *ngIf="!initialSlide">
+      <div class="slide-content">
+        <div class="slide-image">
+          <svg
+             viewBox="0 0 90 140"
+             height="140"
+             width="90">
+            <g
+               transform="translate(0,-912.36214)"
+               id="layer1">
+              <path
+                *ngIf="unlockedIonSlides==2"
+                 class="slow"
+                 style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+                 d="m 45.203767,1019.9446 c 0,-27.1855 0,-26.84988 0,-26.84988 l 40.688411,0 -83.044378,0 0,30.20618 c 0,0 11.644891,24.2134 41.674939,24.2134 30.030047,0 42.62946,-24.768 42.62946,-24.768 l 0,-78.31708 c 0,0 -14.698847,-25.46668 -43.831927,-25.46668 -29.13308,0 -40.4175202,23.48288 -40.4175202,23.48288 l 0,39.90933 -0.054948,0 0.3335122,-1.00688"
+                 id="path4190"
+                 inkscape:connector-curvature="0" />
+            </g>
+          </svg>
+        </div>
+        <p>{{ 'WELCOME_INFO_DESCRIPTION' | translate}}</p>
+        <ion-button  slot="end" size="large" color="primary" fill="clear" (click)="nextSlide()">
+          OK
+        </ion-button>
+      </div>
+    </ion-slide>
+    <ion-slide *ngIf="!initialSlide">
+      <div class="slide-content">
+        <div class="slide-image">          
+          <svg
+             width="100"
+             height="93.153999"
+             viewBox="0 0 100 93.154002"
+             >
+            <g
+               transform="translate(0,-959.20815)"
+               id="layer3">
+              <path
+                *ngIf="unlockedIonSlides==3"
+                 class="slow"
+                 style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1"
+                 d="m 93.935828,975.24983 c 0,0 3.05434,-14.67589 -9.632935,-14.67589 l -74.4789851,0 c 0,0 -8.4581843,2.13036 -8.4581843,10.41518 l 0,70.77568 c 0,0 0.7048501,9.2317 9.3979824,9.2317 l 74.009087,0 c 0,0 8.693129,-1.4203 8.693129,-8.995 l 0,-7.8114 -48.869492,0 c 0,0 -6.578587,-2.6038 -6.813535,-7.3379 -0.23495,-4.7342 0,-43.31757 0,-43.31757 0,0 1.174748,-7.33794 7.988282,-7.57467 6.813538,-0.23668 49.574347,0 49.574347,0 0,0 3.289287,0.47341 3.289287,4.49746 l 0,43.31758 c 0,0 -0.704849,1.8937 -2.584438,2.1304 -1.879599,0.2368 -46.050105,0 -46.050105,0 0,0 -3.054343,-0.9467 -3.054343,-3.0773 l 0,-35.74284 c 0,0 0.469897,-2.13039 2.349496,-2.13039 l 48.634541,0"
+                 id="path4202"
+                 inkscape:connector-curvature="0" />
+            </g>
+          </svg>
+          <ion-icon id="wallet-icon" [ngClass]="{visible: unlockedIonSlides==3}" ios="md-wallet" md="md-wallet"></ion-icon>
+        </div>
+        <form>
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">{{ 'WALLET_NAME' | translate }}</ion-label>
+              <ion-input #walletNameInput type="text" [(ngModel)]="walletName" name="wallet"></ion-input>
+            </ion-item>
+
+            <ion-button (click)="unlockWallet()" color="primary" expand="block">{{ 'WALLET_CREATE' | translate }}</ion-button>
+
+          </ion-list>
+        </form>
+      </div>
+    </ion-slide>
+    <!--
+    <ion-slide *ngIf="!initialSlide">
+      <div class="slide-content">
+        <div class="slide-image">
+
+          <ion-button class="walletType" fill="clear" (click)="setWalletType('individual')">
+            <ion-icon [ngClass]="{visible: unlockedIonSlides==4}" ios="md-business" md="md-person"></ion-icon>
+            <b>Individual wallet</b>
+          </ion-button>
+
+          <ion-button class="walletType" fill="clear" (click)="setWalletType('business')">
+            <ion-icon [ngClass]="{visible: unlockedIonSlides==4}" ios="md-business" md="md-business"></ion-icon>
+            <b>Organization, project or company wallet</b>
+          </ion-button>
+
+        </div>
+      </div>
+    </ion-slide>
+    -->
+  </ion-slides>
+
+  <div *ngIf="initialSlide && !isCordova" class="stores">
+    <a class="md" href="https://play.google.com/store/apps/details?id=com.bankist.xyz" target="_blank">
+      <img src="/assets/icon/google_play.png">
+    </a>
+    <a class="ios" href="https://itunes.apple.com/us/app/bankist/id1447416226" target="_blank">
+      <img src="/assets/icon/app_store.png">
+    </a>
+  </div>
+
+  <language *ngIf="initialSlide" (changedLanguage)="changeLanguage($event)"></language>
+
+  <div *ngIf="initialSlide" class="legal">
+    <a [routerDirection]="'root'" [routerLink]="['/privacy']">
+      Privacy
+    </a>
+    <a [routerDirection]="'root'" [routerLink]="['/terms']">
+      Terms
+    </a>
+    <a href="mailto:bankist@bankist.xyz">
+      Contact
+    </a>
+  </div>
+
+</ion-content>

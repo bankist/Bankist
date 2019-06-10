@@ -1,0 +1,14 @@
+
+<aside>
+  <ion-button *ngIf="!wallet?.plans?.length" fill="clear" (click)="createPlan()">{{ 'PLAN_CREATE' | translate }}</ion-button>
+  <ng-template [ngIf]="wallet?.plans?.length">
+    <ion-button *ngIf="showingPlans" fill="clear" (click)="createPlan()"><ion-icon md="md-add" ios="md-add"></ion-icon></ion-button>
+    <ion-button *ngIf="showingPlans" fill="clear" class="centered" (click)="showPlansList()">
+      {{ 'PLANS_LIST'| translate }}
+    </ion-button>
+    <ion-button *ngIf="!showingPlans" fill="clear" class="centered" (click)="showPlansButtons(true)">
+      {{ 'PLANS_SHOW' | translate }}
+    </ion-button>
+    <ion-button *ngIf="showingPlans" fill="clear" (click)="showPlansButtons(false)"><ion-icon md="md-close" ios="md-close"></ion-icon></ion-button>
+  </ng-template>
+</aside>

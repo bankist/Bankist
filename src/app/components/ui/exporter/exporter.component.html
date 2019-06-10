@@ -1,0 +1,45 @@
+
+<section 
+  id="exporter-container"
+  class="exporter-container">
+  <ion-card>
+    <ion-card-content>
+      <section class="exporter">
+
+        <ion-icon
+          md="md-arrow-round-back" 
+          ios="md-arrow-round-back" 
+          class="card-close"
+          (click)="closeExporter()"
+          ></ion-icon>
+
+        <h2 class="subtitle">{{ 'EXPORT_CONTENT' | translate }}</h2>
+
+        <b class="text">{{wallet?.name}}</b>
+
+        <p class="text">{{ 'EXPORT_MOVEMENTS_TEXT' | translate }} {{wallet?.movements?.length}}</p>
+
+        <ion-item class="export-type">
+          <ion-label>{{ 'EXPORT_MOVEMENTS' | translate }}</ion-label>
+          <ion-checkbox slot="end"  (click)="type='movements'" [checked]="type=='movements'" color="primary"></ion-checkbox>
+        </ion-item>
+
+        <ion-item class="export-type">
+          <ion-label>{{ 'EXPORT_WALLET' | translate }}</ion-label>
+          <ion-checkbox slot="end" (click)="type='wallet'" [checked]="type=='wallet'" color="primary"></ion-checkbox>
+        </ion-item>
+
+        <ion-button  color="primary" expand="block"
+         (click)="exporterExport('copy')">
+          {{ 'EXPORT_COPY' | translate }}
+        </ion-button>
+
+        <ion-button  color="primary" expand="block"
+         (click)="exporterExport('save')">
+          {{ 'EXPORT_SAVE' | translate }}
+        </ion-button>
+
+      </section>
+    </ion-card-content>
+  </ion-card>
+</section>

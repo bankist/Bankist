@@ -1,0 +1,81 @@
+
+@mixin rotate($rotation) {
+    -webkit-transform: rotate($rotation);
+    -moz-transform: rotate($rotation);
+    -ms-transform: rotate($rotation);
+    -o-transform: rotate($rotation);
+    transform: rotate($rotation);
+}
+
+@mixin box-sizing($box-sizing) {
+    -webkit-box-sizing: $box-sizing;
+    -moz-box-sizing: $box-sizing;
+    box-sizing: $box-sizing;
+}
+@mixin transition-property($transition) {
+    -webkit-transition-property: $transition;
+    -moz-transition-property: $transition;
+    -o-transition-property: $transition;
+    transition-property: $transition;
+}
+
+@mixin transition-duration($duration) {
+    -webkit-transition-duration: $duration;
+    -moz-transition-duration: $duration;
+    -o-transition-duration: $duration;
+    transition-duration: $duration;
+}
+
+@mixin transition-timing-function($timing){
+    -webkit-transition-timing-function: $timing;
+    -moz-transition-timing-function: $timing;
+    -o-transition-timing-function: $timing;
+    transition-timing-function: $timing;
+}
+
+@mixin media-only($device) {
+  @if $device == xxs {
+    @media (min-width: $screen-xxs-min) and (max-width: $screen-xxs-max) { @content; }
+  } @else if $device == sm {
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) { @content; }
+  } @else if $device == md {
+    @media (min-width: $screen-md-min) and (max-width: $screen-md-max) { @content; }
+  } @else if $device == lg {
+    @media (min-width: $screen-lg-min) and (max-width: $screen-lg-max) { @content; }
+  } @else {
+    // XS, the default
+    @media (max-width: $screen-xs-max)  { @content; }
+  }
+}
+
+@mixin media($device) {
+  @if $device == xxs {
+    @media (min-width: $screen-xxs-min) { @content; }
+  } @else if $device == sm {
+    @media (min-width: $screen-sm-min) { @content; }
+  } @else if $device == md {
+    @media (min-width: $screen-md-min)  { @content; }
+  } @else if $device == lg {
+    @media (min-width: $screen-lg-min)  { @content; }
+  } @else if $device == gigant {
+    @media (min-width: $screen-gigant-min)  { @content; }
+  } @else {
+    // XS, the default
+    @content;
+  }
+}
+
+@mixin media-max($device) {
+  @if $device == xxs {
+    @media (max-width: $screen-xxs-max) { @content; }
+  } @else if $device == xs {
+    @media (max-width: $screen-xs-max) { @content; }
+  } @else if $device == sm {
+    @media (max-width: $screen-sm-max)  { @content; }
+  } @else if $device == md {
+    @media (max-width: $screen-md-max)  { @content; }
+  } @else {
+    // XS, the default
+    @content;
+  }
+}

@@ -1,0 +1,73 @@
+
+<section 
+  id="plan-form-container"
+  class="plan-form-container"
+  (click)="closePlanForm($event)">
+
+  <ion-card>
+    
+    <ion-card-content>
+      <section class="plan-form">
+
+
+        <ion-icon
+          md="md-close" 
+          ios="md-close" 
+          class="card-close"
+          (click)="closePlanForm()"
+          ></ion-icon>
+
+        <h2 *ngIf="!plan.planUuid" class="subtitle">{{ 'PLAN_CREATE_TITLE' | translate }}</h2>
+        <h2 *ngIf="plan.planUuid" class="subtitle">{{ 'PLAN_EDIT_TITLE' | translate }}</h2>
+        
+        <form #planForm="ngForm">
+
+          <div class="form-field">
+            <ion-item>
+              <ion-input type="text" placeholder="{{ 'PLAN_NAME' | translate }}" [(ngModel)]="plan.name" #name="ngModel" name="name" required></ion-input>
+            </ion-item>
+          </div>
+
+          <div class="form-field">
+            <ion-item>
+              <ion-label>{{ 'PLAN_TO' | translate }}</ion-label>
+              <ion-datetime
+                displayFormat="{{ 'DATE_FORMAT' | translate }}"
+                monthNames="{{ 'DATE_MONTH_NAMES' | translate}}"
+                monthShortNames="{{ 'DATE_MONTH_SHORT_NAMES' | translate}}"
+                dayNames="{{ 'DATE_DAY_NAMES' | translate}}"
+                dayShortNames="{{ 'DATE_DAY_SHORT_NAMES' | translate}}"
+                cancelText="{{ 'CANCEL' | translate}}"
+                doneText="{{ 'DONE' | translate}}"
+                min="{{dateMin}}"
+                max="{{dateMax}}"
+                #to="ngModel" name="to"
+                [(ngModel)]="plan.to"></ion-datetime>
+            </ion-item>
+          </div>
+
+          <div class="form-field">
+            <span>{{'PLAN_AMOUNT' | translate}}</span>
+          </div>
+          <div class="form-field">
+            <movement-input [movement]="plan" [currency]="currency" (changedInput)="plan.amount = $event"></movement-input>
+          </div>
+
+          <div class="form-field inlined w50 button">
+            <ion-button  color="primary" expand="block"
+            [disabled]="!plan?.amount || !plan?.name" 
+             (click)="save(planForm)">
+             <ng-template [ngIf]="!plan.planUuid">{{ 'CREATE' | translate }}</ng-template>
+             <ng-template [ngIf]="plan.planUuid">{{ 'SAVE' | translate }}</ng-template>
+            </ion-button>
+          </div>
+          <div *ngIf="plan.planUuid" class="form-field">
+            <ion-button (click)="deletePlan()"  color="primary" expand="block" fill="clear">{{ 'DELETE' | translate}}</ion-button>
+          </div>
+
+        </form>
+
+      </section>
+    </ion-card-content>
+  </ion-card>
+</section>

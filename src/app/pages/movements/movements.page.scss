@@ -1,0 +1,8 @@
+@import "./../../../theme/variables.scss";
+
+.movements{
+  display: flex;
+  @media screen and (max-width: map-get($grid-breakpoints, lg)){
+    display: block;
+  }
+}

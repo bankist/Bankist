@@ -1,0 +1,22 @@
+
+<div class="assistant-recent">
+
+  <h2>{{ 'ASSISTANT_RELEVANT_TITLE' | translate }}</h2>
+
+  <p>{{ 'ASSISTANT_RELEVANT_TEXT' | translate }}</p>
+
+  <section>
+
+    <movement-form
+      *ngIf="movement"
+      [currency]="currency"
+      [options]="options"
+      [wallet]="wallet"
+      [movement]="movement"
+      [view]="view"
+      (createdMovement)="createMovement($event)"
+      ></movement-form>
+    
+  </section>
+  
+</div>

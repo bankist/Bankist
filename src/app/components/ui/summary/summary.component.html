@@ -1,0 +1,141 @@
+
+  <header [ngClass]="{slim: slim, economy: type=='economy'}">
+
+    <ion-fab-button (click)="assistant()" class="assistant active">
+      <ion-icon md="md-radio-button-on" ios="md-radio-button-on"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-button (click)="showMenu()" class="menu">
+      <ion-icon md="md-contrast" ios="md-contrast"></ion-icon>
+    </ion-fab-button>
+
+    <div class="grid">
+
+      <div class="cell title">
+        <h1>{{ title || wallet?.name }}</h1>
+      </div>
+
+      <div class="cell summary">
+        <div class="balance" (click)="setBalance()">
+          <ng-template [ngIf]="wallet?.balance">
+            <ng-template [ngIf]="!type || type!='economy'">
+              <ng-template [ngIf]="!wallet?.balance && type">
+                <b></b>
+                <small>{{ 'YOU_DID_WITH_' + type | translate}}</small>
+              </ng-template>
+              <ng-template [ngIf]="wallet?.balance">
+                <small>
+                  {{ 
+                    ('SUMMARY_BALANCE' | translate) + ' '
+                    + ('AT_DATE' | translate) + ' ' 
+                    + ((('EMPTY' | translate) + date) | datezeit)
+                  }}
+                </small>
+                <b>
+                  {{wallet?.balance | currency:currency:'symbol':'1.0-0' | customcurrency}}
+                </b>
+              </ng-template>
+            </ng-template>
+            <ng-template [ngIf]="type=='economy'">
+              <small>{{ 'YOU_DID_WITH_' + type | translate}}</small>
+              <b>
+                {{ (wallet.incomes ? (wallet?.savings / wallet?.incomes * 100) : 0) | number:'1.0-0' }} %
+              </b>
+            </ng-template>
+          </ng-template>
+          <ng-template [ngIf]="!wallet?.balance">
+              <small></small>
+              <b>-</b>
+          </ng-template>
+        </div>
+      </div>
+
+      <div #chartSummary id="chartSummary">
+        <svg viewBox="0 0 300 15" preserveAspectRatio="xMidYMid meet">
+          <g id="main">
+            <path 
+            *ngIf="wallet && (!wallet?.movements?.length || wallet?.balance)"
+            id="curve" d="M0,15 Q150,0 300,15" style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;" />
+          </g>
+        </svg>
+      </div>
+
+      <div *ngIf="!type || type!='economy'" class="cell interval">
+
+        <ng-template [ngIf]="!type || type!='economy'">
+          <ion-fab-button (click)="prev()">
+            <ion-icon name="skip-backward"></ion-icon>
+          </ion-fab-button>
+          <h3 *ngIf="interval">
+            <ng-template [ngIf]="range">
+              {{ interval?.initial | calendarDate:(range + 'ViewTitle'):currentLang }}
+            </ng-template>
+            <ng-template [ngIf]="!range">            
+              {{ interval?.id | translate }}
+            </ng-template>
+            <ion-item *ngIf="range && date">
+              <ion-datetime 
+                displayFormat="{{ 'DATE_FORMAT_SHORT' | translate }}"
+                monthNames="{{ 'DATE_MONTH_NAMES' | translate}}"
+                monthShortNames="{{ 'DATE_MONTH_SHORT_NAMES' | translate}}"
+                dayNames="{{ 'DATE_DAY_NAMES' | translate }}"
+                dayShortNames="{{ 'DATE_DAY_SHORT_NAMES' | translate }}"
+                cancelText="{{ 'CANCEL' | translate}}"
+                doneText="{{ 'DONE' | translate}}"
+                min="{{dateMin}}"
+                max="{{dateMax}}"
+                value="{{intervalInitial}}"
+                (ionChange)="onChangeIntervalInitial($event.target.value)"></ion-datetime>
+            </ion-item>
+            <ion-item *ngIf="!range && date">
+              <ion-select
+                value="{{interval.id}}" 
+                interface="action-sheet"
+                (ionChange)="onChangeInterval($event?.target?.value)">
+                <ion-select-option 
+                  *ngFor="let inter of intervals"
+                  value="{{inter.id}}">{{ inter.id | translate }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </h3>
+          <ion-fab-button (click)="next()">
+            <ion-icon name="skip-forward"></ion-icon>
+          </ion-fab-button>
+        </ng-template>
+      </div>
+
+      <div *ngIf="!type || type!='economy'" class="types">
+        <div [ngClass]="{cell: true, incomes: true, active: type=='income'}" (click)="setType('income')">
+          <div>
+            <small>{{ 'INCOMES' | translate}}</small>
+            <b *ngIf="wallet?.incomes">
+              {{wallet?.incomes | currency:currency | customcurrency}}
+            </b>
+            <b *ngIf="!wallet?.incomes">-</b>
+          </div>
+        </div>
+
+        <div [ngClass]="{cell: true, expenses: true, active: type=='outcome'}" (click)="setType('outcome')">
+          <div>
+            <small>{{ 'EXPENSES' | translate}}</small>
+            <b *ngIf="wallet?.expenses">
+              {{wallet?.expenses | currency:currency | customcurrency}}
+            </b>
+            <b *ngIf="!wallet?.expenses">-</b>
+          </div>
+        </div>
+
+        <div [ngClass]="{cell: true, savings: true, active: type=='saving'}">
+          <div>
+            <small>{{ 'SAVINGS' | translate}}</small>
+            <b *ngIf="wallet?.savings">
+              {{wallet?.savings | currency:currency | customcurrency}}
+            </b>
+            <b *ngIf="!wallet?.savings">-</b>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </header>

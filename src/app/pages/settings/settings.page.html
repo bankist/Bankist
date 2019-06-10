@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ion-icon md="md-settings" ios="md-settings"></ion-icon>
+      {{ 'SETTINGS' | translate }}
+    </ion-title>
+
+    <ion-icon (click)="close()" class="close" md="md-close" ios="md-close"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-item class="title">
+      <ion-label>{{ "SETTINGS_TITLE" | translate }}</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="currentLang">
+      <ion-label>{{ "SETTINGS_LANGUAGE" | translate }}</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="currentLang" (ionChange)="changeLanguage()">
+        <ion-select-option *ngFor="let lang of languages" value="{{lang}}">{{('LANG_' + (lang | uppercase)) | translate }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="currentCurrency">
+      <ion-label>{{ "SETTINGS_CURRENCY" | translate }}</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="currentCurrency" (ionChange)="changeCurrency()">
+        <ion-select-option *ngFor="let currency of currencies" value="{{currency.id}}">{{currency.id}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item (click)="importMovements()">
+      <ion-label>{{ "SETTINGS_IMPORT" | translate }}</ion-label>
+    </ion-item>
+
+    <ion-item (click)="exportMovements()">
+      <ion-label>{{ "SETTINGS_EXPORT" | translate }}</ion-label>
+    </ion-item>
+
+    <ion-item (click)="deleteWallet()">
+      <ion-label>{{ "SETTINGS_DELETE_WALLET" | translate }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

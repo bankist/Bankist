@@ -1,0 +1,17 @@
+
+
+<section>
+  <ion-item *ngIf="!essentials?.length">
+    <small class="no-data">No hay gastos imprescindibles</small>
+  </ion-item>
+  <ion-list *ngIf="essentials?.length">
+
+    <movement-mini *ngFor="let movement of essentials"
+    [check]="true"
+    [currency]="currency"
+    [movement]="movement"
+    (movementClicked)="editMovement($event)"
+    (movementChanged)="editEssential($event)"></movement-mini>
+
+  </ion-list>
+</section>

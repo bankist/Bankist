@@ -1,0 +1,39 @@
+
+<section 
+  class="stores-container"
+  (click)="closeStores($event)">
+  <ion-card>
+    
+    <ion-card-content>
+      <section class="stores">
+
+        <ion-icon
+          md="md-close" 
+          ios="md-close" 
+          class="card-close"
+          (click)="closeStores()"
+          ></ion-icon>
+
+        <h3 class="card-title">{{ 'GET_THE_APP' | translate }}</h3>
+
+        <p class="card-text">{{ 'GET_THE_APP_TEXT' | translate }}</p>
+
+        <div class="card-buttons">
+          <a
+            class="card-button" 
+            href="https://play.google.com/store/apps/details?id=com.bankist.xyz" target="_blank">
+            <img src="/assets/icon/google_play.png">
+          </a>
+          <a
+            class="card-button" 
+            href="https://itunes.apple.com/us/app/bankist/id1447416226" target="_blank">
+            <img src="/assets/icon/app_store.png">
+          </a>
+        </div>
+
+      </section>
+    </ion-card-content>
+  
+  </ion-card>
+  
+</section>

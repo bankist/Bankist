@@ -1,0 +1,20 @@
+
+<div class="economy-plans">
+  <section>
+    <ion-button *ngIf="!plans?.length" fill="clear" (click)="createPlan()">{{ 'PLAN_CREATE' | translate }}</ion-button>
+    <ion-list *ngIf="plans?.length">
+      <ion-item *ngFor="let plan of plans" class="plan" (click)="editPlan(plan)">
+        <div class="container">
+          <p>
+            {{plan.name}}
+          </p>
+          <b>{{plan.amount | currency:currency | customcurrency}}</b>
+          <small>
+            <span>{{plan.from | datezeit }}</span>
+            <span>{{(plan.to?plan.to:now) | datezeit }}</span>
+          </small>
+        </div>
+      </ion-item>
+    </ion-list>
+  </section>
+</div>

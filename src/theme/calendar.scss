@@ -1,0 +1,146 @@
+
+.cal-month-view .cal-cell-row .cal-cell:hover, .cal-month-view .cal-cell.cal-has-events.cal-open {
+  background: rgba(237, 237, 237, 0.2);
+}
+.cal-month-view .cal-cell-row:hover {
+  background: rgba(237, 237, 237, 0.02);
+}
+.cal-month-view .cal-day-cell,
+.cal-month-view .cal-cell-top {
+  min-height: auto;
+  max-height: 100%;
+}
+.cal-month-view .cal-day-cell {
+  position: relative;
+  height: calc((100vh - 280px)/7);
+}
+.cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
+  color: white;
+}
+.cal-month-view .cal-day-badge {
+  margin-top: 2px;
+  margin-left: 2px;
+  border-radius: 0;
+  color: white;
+  &.income {
+    position: absolute;
+    left: 2px;
+    bottom: 2px;    
+    padding: 0;  
+    background: none;
+    span {
+      color: var(--bankist-color-income);
+    }
+  }
+  &.outcome {
+    position: absolute;
+    right: 2px;
+    bottom: 2px;      
+    padding: 0;
+    background: none;
+    span {
+      color: var(--bankist-color-outcome);
+    }
+  }
+  & > span {
+    display: block;
+    height: 14px;
+    padding: 1px 5px;
+    border-radius: 100%;
+    line-height: 10px;
+    text-align: center;
+  }
+}
+.cal-month-view .cal-day-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  margin: auto;
+  float: none;
+  text-align: center;
+  transform: translateX(-50%) translateY(-50%);
+  color: white;
+}
+.cal-week-view .cal-day-headers {
+  padding-left: 0;
+  border-top: 0;
+  border-left: 0 !important;
+  border-right: 0 !important;
+}
+.cal-month-view .cal-header, 
+.cal-week-view .cal-header {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  * {
+    font-size: 11px;
+    color: white;
+  }
+}
+.cal-week-view .cal-day-headers .cal-header:hover, .cal-week-view .cal-day-headers .cal-drag-over {
+  background: rgba(237, 237, 237, 0.22) !important;
+}
+.cal-month-view .cal-day-cell.cal-today, 
+.cal-week-view .cal-header.cal-today {
+  background: rgba(255,255,255,0.22);
+}
+.cal-week-view .cal-header.cal-weekend span{
+  color: white;
+}
+.cal-week-view .cal-all-day-events {
+  border: none;
+}
+.cal-week-view .cal-all-day-events .cal-day-columns {
+  display: none;
+}
+.cal-week-view .cal-all-day-events .cal-events-row {
+  height: 36px;
+  margin-top: 2px;
+  margin-bottom: 8px;
+  margin-left: 0;
+}
+.cal-week-view .cal-all-day-events .cal-event {
+  --div-width: calc((100vw - 30vw) / 7 - 8px);
+  @media screen and (max-width: map-get($grid-breakpoints, lg)){
+    --div-width: calc(100vw / 7 - 8px);
+  }
+  width: var(--div-width);
+  height: 36px;
+  padding: 0;
+  padding-top: 4px;
+  padding-left: 2px;
+  line-height: 12px;
+  border: none;
+  background: none;
+  background: rgba(255,255,255,0.12);
+  border-radius: 0 !important;
+  overflow: visible;
+}
+.cal-week-view .cal-all-day-events .cal-event-movement {
+  display: block;
+  max-width: calc(100% - 4px);
+  padding-top: 2px;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 14px;
+  color: white;
+  &.income {
+    border-top: 1px solid var(--bankist-color-income);
+  }
+  &.outcome {
+    border-top: 1px solid var(--bankist-color-outcome);
+  }
+  b,
+  small {
+    display: block;
+    max-width: calc(100% - 4px);
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 14px;
+  }
+}
+.cal-week-view .cal-time-events {
+  display: none;
+}

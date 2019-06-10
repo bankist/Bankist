@@ -1,0 +1,21 @@
+@import "./../../../theme/variables.scss";
+
+.economy{
+    width: 100%;
+    max-width: 480px;
+    margin: auto;
+    @media screen and (max-width: map-get($grid-breakpoints, lg)){
+      display: block;
+      width: calc(100% - 15px);
+      padding-bottom: 40px;
+    }
+}
+
+h5 {
+  margin-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  text-align: left;
+  text-indent: 10px;
+}

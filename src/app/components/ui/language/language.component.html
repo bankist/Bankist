@@ -1,0 +1,6 @@
+
+<span class="language">
+  <span *ngFor="let lang of languages" 
+    (click)="changeLang(lang)" 
+    [ngClass]="{active: lang == currentLang}">{{lang}}</span>
+</span>

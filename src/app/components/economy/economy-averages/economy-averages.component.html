@@ -1,0 +1,36 @@
+
+<div class="averages">
+  <div class="average-period">
+
+    <h3>{{ 'AVERAGE_DAILY' | translate}}</h3>
+    <div *ngFor="let d of daily" class="average">
+      <span>
+        <ion-icon name="{{d.type | iconify}}"></ion-icon>
+        <b>{{ d?.value | currency:currency:'symbol':'1.0-0' | customcurrency}}</b>
+      </span>
+    </div>
+
+  </div>
+  <div class="average-period">
+
+    <h3>{{ 'AVERAGE_WEEKLY' | translate}}</h3>
+    <div *ngFor="let w of weekly" class="average">
+      <span>
+        <ion-icon name="{{w.type | iconify}}"></ion-icon>
+        <b>{{ w?.value | currency:currency:'symbol':'1.0-0' | customcurrency}}</b>
+      </span>
+    </div>
+
+  </div>
+  <div class="average-period">
+
+    <h3>{{ 'AVERAGE_MONTHLY' | translate}}</h3>
+    <div *ngFor="let m of monthly" class="average">
+      <span>
+        <ion-icon name="{{m.type | iconify}}"></ion-icon>
+        <b>{{ m?.value | currency:currency:'symbol':'1.0-0' | customcurrency}}</b>
+      </span>
+    </div>
+    
+  </div>
+</div>

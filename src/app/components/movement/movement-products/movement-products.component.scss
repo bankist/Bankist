@@ -1,0 +1,29 @@
+@import "./../../../../theme/variables.scss";
+
+.movement-products {
+  height: 440px;
+  ion-list {
+    height: calc(100% - 44px);
+    overflow: scroll;
+    ion-item {
+      text-align: left;
+      color: #333 !important;
+      &.active,
+      &:hover {
+        --ion-color-base: var(--ion-color-tint) !important;
+      }
+      &:first-child {
+        text-indent: 26px;
+      }
+      ion-icon {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+  }
+  ion-icon[end] {
+    position: absolute;
+    right: 10px;
+    font-size: 22px;
+  }
+}

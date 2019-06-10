@@ -1,0 +1,170 @@
+@import "./../../../theme/variables.scss";
+
+ion-slides {
+  max-height: 100vh;
+}
+
+.swiper-slide {
+  position: relative;
+  height: 100vh;
+  flex-direction: column;
+  .slide-zoom {
+    position: relative;
+    width: 320px;
+    max-width: 90%;
+  }
+}
+
+.slide-content {
+  position: fixed;
+  display: block;
+  bottom: 50%;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  max-height: 244px;
+  transform: translateY(120px);
+}
+
+.slide-image {
+
+  path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation-delay: 1.5s;
+    animation: dash 2s linear forwards;        
+    &.slow {
+      animation-delay: 1.5s;
+      animation: dash 1.25s linear forwards;        
+    }
+  }
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+.swiper-pagination{
+  top: 100%;
+  transform: translateY(-80px);
+  bottom: auto;
+}
+
+
+h2, p {
+  color: white;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+p {
+  max-width: 280px;
+  height: 30px;
+  margin: 1em auto;
+  font-size: 12px;
+  line-height: 150%;
+}
+
+.list {
+  margin-bottom: 0 !important;
+
+  .item {
+    padding-left: 0 !important;
+  }
+}
+
+ion-button {
+  display: block;
+  width: 340px;
+  max-width: 100%;
+  margin: auto;
+  &.walletType {
+    width: 224px;
+    height: 140px;
+    ion-icon {
+      font-size: 38px;
+    }
+    b {
+      position: absolute;
+      display: block;
+      top: 92px;
+      width: 200px;
+      white-space: normal;
+      line-height: 140%;
+    }
+  }
+}
+
+form {
+  ion-button {
+    margin-top: 10px;
+  }
+}
+
+#wallet-icon {
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  transform: translateX(-50%);
+  font-size: 123px;
+  color: white;
+  transition: opacity 0.6s;
+  -webkit-transition: opacity 0.6s;
+  opacity: 0;
+  z-index: -1;
+  &.visible {
+    opacity: 1;
+  }
+}
+
+.stores {
+  position: absolute;
+  bottom: 85px;
+  display: block;
+  width: 100vw;
+  height: 40px;
+  z-index: 10;
+  align-items: center;
+  text-align: center;
+  @media screen and (min-width: map-get($grid-breakpoints, md)){
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: auto;
+  }
+  a {
+    margin: 0 12px;
+    &.disabled {
+      opacity: 0.2;
+    }
+  }
+  img{
+    display: inline-block;
+    vertical-align: top;
+    height: 100%;
+  }
+}
+
+.legal {
+  position: relative;
+  top: 40px;
+  left: 0;
+  width: 100vw;
+  margin-bottom: 40px;
+  text-align: center;
+  transform: translateY(-26px);
+  z-index: 10;
+  > * {
+    display: block;
+    vertical-align: top;
+    min-width: 100px;
+    margin: 10px auto;
+    padding: 10px 0;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-rendering: optimizeLegibility;
+  }
+}

@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>assistant</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+</ion-content>

@@ -1,0 +1,10 @@
+
+ion-header {
+  height: 80px !important;
+  ion-toolbar {
+    height: 80px !important;
+  }
+  ion-item {
+   --padding-start: 0;
+  }
+}

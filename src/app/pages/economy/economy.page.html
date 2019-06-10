@@ -1,0 +1,62 @@
+
+<ion-content #economy>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();dispatchResize();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <summary 
+    [language]="currentLang" 
+    [interval]="interval" 
+    [title]="'ECONOMY_TITLE' | translate" 
+    [wallet]="wallet" 
+    type="economy" 
+    (changedWalletBalance)="changeWalletBalance($event)"
+    ></summary>
+
+  <section class="economy">
+
+    <economy-savings [wallet]="wallet" [movements]="wallet?.zeitMovements"></economy-savings>
+
+    <economy-averages [movements]="wallet?.zeitMovements" [interval]="interval" [currency]="currency"></economy-averages>
+
+    <economy-products [movements]="wallet?.zeitMovements" [currency]="currency"></economy-products>
+
+    <h5>{{ 'RELEVANTS_TITLE' | translate}}</h5>
+
+    <movement-relevants 
+      [movements]="wallet?.zeitMovements" 
+      [wallet]="wallet" 
+      [currency]="currency" 
+      (clickedMovement)="editMovement($event)"></movement-relevants>
+
+    <h5>{{ 'ESSENTIALS_TITLE' | translate}}</h5>
+
+    <movement-essentials 
+      [movements]="wallet?.zeitMovements" 
+      [wallet]="wallet" 
+      [currency]="currency" 
+      (clickedMovement)="editMovement($event)"></movement-essentials>
+
+    <h5>{{ 'AVOIDABLES_TITLE' | translate}}</h5>
+
+    <movement-avoidables 
+      [movements]="wallet?.zeitMovements" 
+      [wallet]="wallet" 
+      [currency]="currency" 
+      (clickedMovement)="editMovement($event)"></movement-avoidables>
+
+    <h5>{{ 'PLANS_LIST' | translate}}</h5>
+
+    <economy-plans [plans]="wallet?.plans" [currency]="currency" (createdPlan)="createPlan()" (clickedPlan)="editPlan($event)"></economy-plans>
+
+  </section>
+
+  <nomovs *ngIf="wallet && !wallet?.movements?.length"></nomovs>
+
+</ion-content>

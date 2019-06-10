@@ -1,0 +1,40 @@
+
+<ion-content>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <summary 
+    [balance]="walletBalance"
+    [currency]="currency"
+    [language]="currentLang"
+    [date]="walletDate"
+    [interval]="interval" 
+    [slim]="true"
+    [title]="'MOVEMENT_TITLE' | translate" 
+    [type]="type" 
+    [wallet]="wallet" 
+    (changedInterval)="changeInterval($event)"
+    (changedType)="changeType($event)"
+    (clickedNext)="changeNext($event)"
+    (clickedPrev)="changePrev($event)"
+    ></summary>
+
+  <section *ngIf="wallet?.movements?.length" class="movements">
+    <movement-list 
+      [wallet]="wallet" 
+      [interval]="interval" 
+      [currency]="currency"
+      [extremes]="extremes" 
+      [showHistoric]="showHistoric" 
+      (clickedMovement)="editMovement($event)"></movement-list>
+  </section> 
+
+  <nomovs *ngIf="wallet && !wallet?.movements?.length"></nomovs>
+</ion-content>

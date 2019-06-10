@@ -1,0 +1,19 @@
+
+<div class="assistant-essential">
+
+  <h2>{{ 'ASSISTANT_ESSENTIAL_TITLE' | translate }}</h2>
+
+  <p>{{ 'ASSISTANT_ESSENTIAL_TEXT' | translate }}</p>
+
+  <section>
+
+    <movement-essentials 
+      [movements]="wallet?.zeitMovements" 
+      [wallet]="wallet" 
+      [currency]="currency"
+      [max]="4"
+      ></movement-essentials>
+
+  </section>
+  
+</div>

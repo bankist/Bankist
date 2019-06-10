@@ -1,0 +1,19 @@
+
+<div [ngClass]="{prefix: cOptions?.prefix, suffix: cOptions?.suffix}">
+  <span>{{ currency }}</span>
+  <input id="movement-input-{{movement?.movementUuid}}"
+      type="tel"
+      currencyInput
+      pattern="^[0-9\.]*$"
+      [(ngModel)]="amount"
+      (keydown)="checkNumber($event)"
+      (change)="emitValue($event)"
+      placeholder="20.50"
+    />
+      <!-- 
+      (keydown)="checkValue($event)"
+      (keyup)="checkValue($event)"
+      currencyMask
+      [options]="cOptions"
+       -->
+</div>

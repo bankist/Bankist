@@ -1,0 +1,16 @@
+
+<span class="movement-products">
+  <ion-item>
+    <ion-label>
+      {{'MOVEMENT_PRODUCT' | translate}}
+    </ion-label>
+    <ion-icon end md="md-close" ios="md-close" (click)="closeMovementProducts($event)"></ion-icon>
+  </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let pro of products" [ngClass]="{active: pro == product}" (click)="selectProduct(pro)">
+      <ion-icon md="{{pro | iconify}}" ios="{{pro | iconify}}"></ion-icon>
+      {{ pro | translate }}
+      <ion-icon *ngIf="pro==product" end md="md-trash" ios="md-trash" (click)="removeProduct($event)"></ion-icon>
+    </ion-item>
+  </ion-list>
+</span>

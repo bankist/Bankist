@@ -1,0 +1,14 @@
+    
+<ion-item class="movement" (click)="editMovement()">
+  <div class="container" [ngClass]="{changed: changed, check: check}">
+    <ion-icon name="{{movement.product ? (movement.product | iconify) : ((movement.type=='outcome'?'down':'up') | iconify) }}"></ion-icon>
+    <p>
+      {{movement.concept}}
+    </p>
+    <b>{{movement.amount | currency:currency | customcurrency}}</b>
+    <small>
+      {{movement.date | datezeit }}
+    </small>
+    <ion-icon *ngIf="check" md="md-medical" ios="md-medical" [ngClass]="{active: movement.essential}" (click)="checkMovement($event)" ></ion-icon>
+  </div>
+</ion-item>

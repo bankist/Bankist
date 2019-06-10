@@ -1,0 +1,42 @@
+
+.economy-products {
+  padding-top: 20px;
+  ion-list {
+    flex-direction: row !important;
+    -webkit-flex-direction: row !important;
+    align-items: end;
+    z-index: 2;
+    ion-item {
+      position: relative;
+      display: inline-block;
+      vertical-align: top;
+      width: 25%;
+      padding: 2px 5px;
+      text-align: center;
+      cursor: pointer;
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 2px;
+        width: calc(100% - 4px);
+        height: 100%;
+        background: rgba(255,255,255,0.05);
+      }
+      .container {
+        display: block;
+        width: 100%;
+        margin: auto;
+        margin-left: -3px;
+        ion-icon {
+          margin: 15px auto 5px;
+          font-size: 32px;
+        }
+        b {
+          display: block;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+
+<ion-content>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <summary 
+    [currency]="currency"
+    [language]="currentLang"
+    [interval]="interval" 
+    [range]="view" 
+    [slim]="true" 
+    [title]="'CALENDAR_TITLE' | translate" 
+    [type]="type" 
+    [wallet]="wallet" 
+    (changedInterval)="changeInterval($event)"
+    (changedType)="changeType($event)"
+    (clickedNext)="changeNext($event)"
+    (clickedPrev)="changePrev($event)"
+    ></summary>
+
+  <section class="movements">
+
+
+    <div class="movement-period">
+      <ion-fab-button *ngIf="view == 'week'" (click)="changeRange('month')">
+        <ion-icon ios="md-calendar" md="md-calendar"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button *ngIf="view == 'day'" (click)="changeRange('week')">
+        <ion-icon ios="md-apps" md="md-apps"></ion-icon>
+      </ion-fab-button>
+    </div>
+
+    <ng-template #customCellTemplate let-day="day" let-locale="locale">
+      <div class="cal-cell-top">
+        <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+        <span class="cal-day-badge income" *ngIf="day.events?.length">
+          <span *ngIf="day.events | calendarbadge:'income'">
+            {{ day.events | calendarbadge:'income' }}
+          </span>
+        </span>
+        <span class="cal-day-badge outcome" *ngIf="day.events?.length">
+          <span *ngIf="day.events | calendarbadge:'outcome'">
+            {{ day.events | calendarbadge:'outcome' }}
+          </span>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template #customEventTemplate let-event="event">
+      <span class="cal-event-movement {{ event.movement.type}}">
+        <b>{{ event.movement.concept}}</b>
+        <small>{{ event.movement.amount  | currency:currency | customcurrency}}</small>
+      </span>
+    </ng-template>
+
+    <div class="movement-calendar" *ngIf="view!='day'" [ngSwitch]="view">
+
+      <mwl-calendar-month-view
+        *ngSwitchCase="'month'"
+        [viewDate]="viewDate"
+        [locale]="currentLang"
+        [events]="zeitEvents"
+        [weekStartsOn]="weekStartsOn"
+        [activeDayIsOpen]="activeDayIsOpen"
+        [cellTemplate]="customCellTemplate"
+        (dayClicked)="changeView($event.day)">
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="'week'"
+        [viewDate]="viewDate"
+        [locale]="currentLang"
+        [events]="zeitEvents"
+        [weekStartsOn]="weekStartsOn"
+        [eventTitleTemplate]="customEventTemplate"
+        (eventClicked)="changeView($event)"
+        (dayHeaderClicked)="changeView($event.day)">
+      </mwl-calendar-week-view>
+
+    </div>
+    <movement-list 
+      *ngIf="movementList || view == 'day' "
+      [wallet]="wallet" 
+      [interval]="interval" 
+      [currency]="currency"
+      [showHistoric]="showHistoric" 
+      (clickedMovement)="editMovement($event)"></movement-list>
+  </section> 
+
+</ion-content>

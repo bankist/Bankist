@@ -1,0 +1,19 @@
+@import "./../../../../theme/variables.scss";
+
+.economy-plans {
+  p {
+    margin: 6px auto;
+  }
+  b {
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    color: var(--bankist-color-primary);
+  }
+  small {
+    span:last-child{
+      position: absolute;
+      right: 12px;
+    }
+  }
+}

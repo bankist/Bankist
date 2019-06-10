@@ -1,0 +1,330 @@
+@import "./../../../../theme/variables.scss";
+
+header{
+  position: relative;
+  .separator-container{
+    position: relative;
+    width: 100%;
+    height: 1px;
+    margin-top: 40px;
+    background: var(--bankist-color-normal);
+    text-align: center;
+    z-index: 2;
+  }
+  &.slim{
+    height: 180px;
+    @media screen and (min-width: map-get($grid-breakpoints, lg)){
+      height: 200px;
+    }
+    .grid {
+      height: 180px;
+      @media screen and (min-width: map-get($grid-breakpoints, lg)){
+        height: 200px;
+      }
+      .cell{
+        &.summary{
+          display: none;
+          @media screen and (min-width: map-get($grid-breakpoints, lg)){
+            display: block;
+          }
+          .balance {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  &.economy {
+    .grid {
+      height: 200px;
+    }
+  }
+  .assistant{
+    position: absolute;
+    top: 18px;
+    left: 0;
+    --background: var(--ion-color-transparent);
+    --background-activated: var(--ion-color-transparent);
+    --background-focused: var(--ion-color-transparent);
+    --box-shadow: none;
+    z-index: 10;
+    transform: rotate(-90deg);
+    ion-icon {
+      font-size: 24px;
+      color: white;
+    }
+    &.active {
+      ion-icon {
+        color: var(--bankist-color-primary);
+        animation: color-change 1.75s infinite;
+      }
+    }
+   @keyframes color-change {
+      0% { color: white; }
+      50% { color: var(--bankist-color-primary); }
+      100% { color: white; }
+    }
+  }
+  .menu{
+    position: absolute;
+    top: 18px;
+    right: 0;
+    --background: var(--ion-color-transparent);
+    --background-activated: var(--ion-color-transparent);
+    --background-focused: var(--ion-color-transparent);
+    --box-shadow: none;
+    z-index: 10;
+    transform: rotate(-90deg);
+    ion-icon {
+      font-size: 24px;
+    }
+  }
+  .grid{
+    position: relative;
+    height: 250px;
+    flex-direction: row !important;
+    -webkit-flex-direction: row !important;
+    align-items: end;
+    z-index: 2;
+    @media screen and (min-width: map-get($grid-breakpoints, lg)){
+      height: 200px;
+      align-items: center;
+    }
+    .types ,
+    .savingRates {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+      text-align: center;
+      flex-direction: row !important;
+      -webkit-flex-direction: row !important;
+      align-items: end;
+    }
+    .savingRates {
+      height: 44px;
+    }
+    .cell{
+      text-align: center;
+      white-space: nowrap;
+      &.title, &.summary, &.interval{
+        width: 100%;
+        height: 50px;
+        padding: 0 12px;
+        border-left: none;
+        text-align: center;
+        @media screen and (min-width: map-get($grid-breakpoints, lg)){
+          width: 18%;
+        }
+      }
+      &.savings, &.expenses, &.incomes {
+        position: relative;
+        display: inline-block;
+        width: 33%;
+        padding: 2px 5px;
+        text-align: center;
+        cursor: pointer;
+      }
+      &.savings, &.expenses, &.incomes {
+        height: 40px;
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 2px;
+          width: calc(100% - 4px);
+          height: 100%;
+          background: rgba(255,255,255,0.12);
+        }
+        &.active {
+          &:before {
+            background: rgba(255,255,255,0.48);
+          }
+        }
+      }
+      &.title{
+        height: 55px; 
+        padding-top: 0;
+        color: white;
+        @media screen and (min-width: map-get($grid-breakpoints, lg)){
+          position: absolute;
+          top: 36px;
+          left: 120px;
+          width: 320px;
+          height: 30px;
+          text-align: left;
+          font-size: 10px;
+        }
+        h1{
+          max-height: 60px;
+          letter-spacing: 2px;
+          font-size: 22px;
+          line-height: 90px;
+          @media screen and (min-width: map-get($grid-breakpoints, lg)){
+            line-height: 30px;
+          }
+        }
+      }
+      &.summary{
+        position: relative;
+        width: 320px;
+        max-width: 100%;
+        height: 65px;
+        margin: 0 auto;
+        padding-top: 4px;
+        z-index: -1;
+        @media screen and (min-width: map-get($grid-breakpoints, lg)){
+          padding-top: 12px;
+        }
+        .balance{
+          b{
+            min-height: 20px;
+            line-height: 40px;
+            font-weight: 400;
+            font-size: 1.8rem;
+            white-space: nowrap;
+            @media screen and (min-width: map-get($grid-breakpoints, xs)){
+              font-size: 3em;
+            }
+          }
+          small{
+            color: var(--bankist-color-light);
+            line-height: 15px;
+          }
+        }
+      }
+      &.savingRate {
+        display: inline-block;
+        width: 20%;
+        height: 20px;
+        padding: 0 7px;
+        img {
+          display: inline-block;
+          vertical-align: middle;
+          width: auto;
+          height: 16px;
+          margin: 5px auto;
+        }
+
+        b {
+          display: inline-block;
+          vertical-align: baseline;
+          width: 34px;
+          height: 10px;
+          font-size: .8rem;
+          text-align: right;
+        }
+
+      }
+      &.savings {
+        small {
+          color: var(--bankist-color-yellow);
+        }
+      }
+      &.expenses {
+        small {
+          color: var(--bankist-color-outcome);
+        }
+      }
+      &.incomes {
+        small {
+          color: var(--bankist-color-income);
+        }
+      }
+      &.interval{
+        width: 100%;
+        padding: 0;
+        @media screen and (min-width: map-get($grid-breakpoints, lg)){
+          height: 45px;
+          margin-top: -30px;
+        }
+        h3 {
+          position: relative;
+          display: inline-block;
+          vertical-align: top;
+          width: 320px;
+          max-width: calc(100% - 112px);
+          min-width: 200px;
+          margin: auto;
+          font-size: 16px;
+          line-height: 40px;
+          color: white;
+        }
+        ion-item {
+          position: absolute;
+          top: 0;
+          width: 100%;
+          opacity: 0;
+          left: 0;
+        }
+        ion-fab-button {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          margin-top: -6px;
+          --background: var(--ion-color-transparent);
+          --background-activated: var(--ion-color-transparent);
+          --background-focused: var(--ion-color-transparent);
+          --box-shadow: none;
+        }
+      }
+    }
+    h1, h2{
+      margin: 0;
+      color: var(--bankist-color-light);
+    }
+    h2{
+      font-size: 1.0em;
+    }
+    b{
+      display: block;
+      line-height: 22px;
+      font-weight: 200;
+      font-size: 1.1rem;
+      color: var(--bankist-color-light);
+      @media screen and (min-width: map-get($grid-breakpoints, lg)){
+        font-size: 1.6rem;
+      }
+      @media screen and (min-width: map-get($grid-breakpoints, sm)){
+        font-size: 1.4rem;
+      }
+      i{
+        font-size: 12px;
+        font-style: none;
+      }
+    }
+    small{
+      display: block;
+      font-size: 80%;
+      font-weight: 100;
+      line-height: 15px;
+      text-transform: uppercase;
+    }
+    #chartSummary{
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 34px;
+      z-index: -1;
+      @media screen and (min-width: map-get($grid-breakpoints, lg)){
+        top: -15px;
+        height: auto;
+      }
+      & > * {
+        width: 100%;
+      }
+    }
+    path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation-delay: 1s;
+      animation: dash 2.5s linear forwards;        
+    }
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+}

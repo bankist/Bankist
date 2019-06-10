@@ -1,0 +1,14 @@
+@import "./../../../../theme/variables.scss";
+
+aside {
+  position: fixed;
+  top: 100vh;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%) translateY(-98px);
+  text-align: center;
+}
+
+.centered {
+  --width: 200px;
+}

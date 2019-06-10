@@ -1,0 +1,6 @@
+
+<section id="movement-chart">
+  <!-- <i class="icon balance {{ 'balance' | iconify }}" [ngClass]="{showing: showWalletBalance}" (click)="toggleBalance()"><small>{{ 'SUMMARY_BALANCE' | translate}}</small></i> -->
+  <i class="icon zoom" [ngClass]="{zoomed: zoomed}" (click)="resetZoom()">Reset zoom</i>
+  <div #chartMovements class="container"></div>
+</section>

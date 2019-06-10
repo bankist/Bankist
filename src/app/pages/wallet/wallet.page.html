@@ -1,0 +1,61 @@
+
+<ion-content>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();dispatchResize();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <summary 
+  [balance]="walletBalance"
+  [currency]="currency"
+  [language]="currentLang"
+  [date]="walletDate"
+  [interval]="interval" 
+  [type]="type" 
+  [wallet]="wallet" 
+  (changedInterval)="changeInterval($event)"
+  (changedType)="changeType($event)"
+  (changedWalletBalance)="changeWalletBalance($event)"
+  (clickedBalance)="changeBalance()"
+  (clickedNext)="changeNext()"
+  (clickedPrev)="changePrev()"
+  ></summary>
+  <ng-template [ngIf]="wallet?.movements?.length">
+    <section class="movements">
+      <ng-template [ngIf]="wallet?.zeitMovements?.length">
+        <movement-chart 
+          [wallet]="wallet" 
+          [interval]="interval" 
+          [type]="type" 
+          [currency]="currency"
+          [language]="currentLang"
+          [showingPlans]="showingPlans"
+          (intervalExtremesChanged)="changeIntervalExtremes($event)"
+          (walletDateChanged)="changeWalletDate($event)"
+          ></movement-chart>
+          <plan-button
+            [wallet]="wallet"
+            [currency]="currency"
+            [balance]="walletBalanceToday"
+            [showingPlans]="showingPlans"
+            (showPlans)="showPlans($event)"
+            (changedPlan)="getPlansInterval()"></plan-button>
+        <movement-list 
+          *ngIf="movementList"
+          [wallet]="wallet" 
+          [interval]="interval" 
+          [currency]="currency"
+          (clickedMovement)="editMovement($event)"></movement-list>
+      </ng-template>
+
+    </section> 
+  </ng-template>
+  
+  <nomovs *ngIf="wallet && !wallet?.movements?.length"></nomovs>
+
+</ion-content>

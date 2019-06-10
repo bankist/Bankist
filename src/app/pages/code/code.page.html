@@ -1,0 +1,54 @@
+
+<ion-content>
+
+  <ion-refresher slot="fixed" pull-max="20" (ionRefresh)="$event.target.complete();">
+    <ion-refresher-content
+      pullingIcon=""
+      pullingText=""
+      refreshingSpinner=""
+      refreshingText="">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <headerlogo></headerlogo>
+
+  <section class="code-content">
+    <h3>{{walletName}}</h3>  
+    <small>{{ 'WALLET_CODE' | translate}}</small>  
+    <div class="codes" [ngClass]="{shake: shake}">
+      <span *ngFor="let code of walletCodeArray"></span>
+    </div>
+    <ion-grid class="code-grid">
+      <ion-row>
+        <ion-col *ngFor="let key of codeKeys" size="4">
+          <ion-fab-button
+            (click)="insertKey(key)"
+            color="transparent">
+            {{key}}
+          </ion-fab-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-fab-button
+            *ngIf="walletCode?.length > 3"
+            (click)="checkCode(key)"
+            color="primary">
+            OK
+          </ion-fab-button>
+        </ion-col>
+        <ng-template [ngIf]="fingerPrint">
+          <ion-col size="4"></ion-col>
+          <ion-col size="4">
+            <ion-fab-button
+              (click)="finger()"
+              color="primary">
+              <ion-icon ios="md-finger-print" md="md-finger-print"></ion-icon>
+            </ion-fab-button>
+          </ion-col>
+          <ion-col size="4"></ion-col>
+        </ng-template>
+      </ion-row>
+      <ion-row>
+      </ion-row>
+    </ion-grid>
+  </section>
+</ion-content>
